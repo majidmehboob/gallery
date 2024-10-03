@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Avatar, { Piece } from "avataaars";
-import mongoose from "mongoose";
-import { getpost } from "../../../actions/postaction";
+
 const EyeType = [
   "EyeRoll",
   "Hearts",
