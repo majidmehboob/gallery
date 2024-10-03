@@ -84,7 +84,7 @@ const Page = () => {
 
       {/* Title Animation */}
       <motion.h1
-        className="-z-1 md:text-7xl text-4xl font-bold text-stone-400"
+        className="z-10 md:text-7xl text-4xl font-bold text-stone-400"
         initial="hidden"
         animate="visible"
         variants={titleVariants}

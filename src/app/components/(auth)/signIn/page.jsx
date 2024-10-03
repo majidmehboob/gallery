@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 const Login = () => {
+  const router=useRouter()
   const [logindata, setlogindata] = useState({
     email: "",
     password: "",
@@ -67,6 +69,7 @@ const Login = () => {
         />
 
         <motion.button
+        onClick={()=>{router.push("/gallery");}}
           variants={itemVariants} // Add the animation variant
           className="bg-lime-900 my-2 text-center w-[90%] mx-3 rounded-full py-1.5 text-xl text-stone-400"
         >
@@ -74,7 +77,7 @@ const Login = () => {
         </motion.button>
       </motion.div>
 
-      <h1>{logindata.email}</h1>
+ 
     </motion.div>
   );
 };
