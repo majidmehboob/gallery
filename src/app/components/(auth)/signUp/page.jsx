@@ -30,9 +30,11 @@ const SignUp = () => {
   }, [avatardata]);
   const HandleSubmit = async () => {
     try {
-    const response = await registerUser(signupdata)
-    console.log("RESPONSE",response)
- setresponse(response.data.email)
+    const res = await registerUser(signupdata)
+    console.log("RESPONSE",res)
+    if(res.success){
+      setresponse(res.message)
+    }
     } catch (error) {
       console.log("ERROR___");
     }
@@ -312,6 +314,9 @@ const SignUp = () => {
           setsignupdata({ ...signupdata, password: e.target.value });
         }}
       />
+      <h2 className="p-4 text-center text-md text-lime-600">
+        {response && response}
+      </h2>
       <motion.button
         variants={itemVariants}
         onClick={() => HandleSubmit()}
@@ -319,9 +324,6 @@ const SignUp = () => {
       >
         Sign up
       </motion.button>
-      <h2 className="text-white p-4 text-center text-2xl">
-        {response && response}
-      </h2>
     </motion.div>
   );
 };

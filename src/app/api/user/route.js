@@ -1,59 +1,32 @@
 import { NextResponse } from "next/server";
-import DBConnection from "@/database";
-// import { hash } from "bcrypt";
+import DBConnection from "@/database/page";
 import USER from "@/models/user";
-// import Joi from "joi";
-
-// const schema = Joi.object({
-//   name: Joi.string().required(),
-//   email: Joi.string().email().required(),
-//   password: Joi.string().min(6).required(),
-//   role: Joi.string().required(),
-// });
 export const dynamic = "force-dynamic";
 export async function POST(req) {
-  await DBConnection();
+   const start = Date.now();
+   await DBConnection();
+   console.log("DB connection took", Date.now() - start, "ms");
   const { name, email, password, avatar } = await req.json();
+  console.log(name,email,password,avatar)
 
 
-  //------------------------------for Error
-  // const { error } = schema.validate({ name, email, password, role });
-  // if (error) {
-  //   return NextResponse.json({
-  //     success: false,
-  //     message: error.details[0].message,
-  //   });
-  // }
+  
+
   //-----------------------------if user already exist
-
   try {
-    const UserVerification = await USER.findOne({ email });
+const userCheckStart = Date.now();
+const UserVerification = await USER.findOne({ email });
+console.log("User check took", Date.now() - userCheckStart, "ms");
     if (UserVerification) {
-      return NextResponse.json({
-        success: false,
-        message: "User Exit Already",
-        data:UserVerification,
-      });
+      return NextResponse.json({success: false,message: "User Exit Already"});
     } else {
-      // const hashPassword = await hash(password, 12);
-      const newUser = await USER.create({
-        name,
-        email,
-        password,
-        avatar,
-      });
+      const newUser = await USER.create({name, email,password,avatar});
       if (newUser) {
-        return NextResponse.json({
-          success: true,
-          message: "User Added sucessfully",
-          data: newUser,
-        });
+        return NextResponse.json({success: true,message: "User Added sucessfully"});
       }
     }
   } catch (error) {
-    return NextResponse.json({
-      success: false,
-      message: "Somthing Went Wrong",
-    });
+    console.log("ERROR)))))((((((",error)
+    return NextResponse.json({success: false,message: "Somthing Went Wrong",});
   }
 }

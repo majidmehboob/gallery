@@ -1,4 +1,5 @@
 export default async function registerUser(data) {
+  console.log(data,"data on sercvices page")
   try {
     const baseUrl =
       process.env.NODE_ENV === "development"
